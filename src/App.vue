@@ -13,7 +13,9 @@
 
     <div v-if="pokemon || showNoPokemonMessage" class="card-container">
       <div v-if="pokemon" class="card">
-        <img :src="pokemon.sprites?.front_default" alt="Pokemon Image" class="pokemon-image" />
+        <div class="pokemon-image-container" :style="{ backgroundColor: typeColors[pokemon.types[0].type.name] }">
+          <img :src="pokemon.sprites?.front_default" alt="Pokemon Image" class="pokemon-image" />
+        </div>
         
         <h2>{{ pokemon.name ? pokemon.name || capitalize : 'Nombre no disponible' }}</h2>
         
@@ -21,7 +23,8 @@
           <button 
             v-for="type in pokemon.types" 
             :key="type.slot" 
-            :class="['type-button', typeColors[type.type.name]]"
+            :style="{ backgroundColor: typeColors[type.type.name] }"
+            class="type-button"
           >
             {{ type.type.name }}
           </button>
@@ -32,7 +35,8 @@
           <button 
             v-for="weakness in weaknesses" 
             :key="weakness" 
-            :class="['type-button', typeColors[weakness]]"
+            :style="{ backgroundColor: typeColors[weakness] }"
+            class="type-button"
           >
             {{ weakness }}
           </button>
@@ -52,7 +56,7 @@
             <div class="stat-bar">
               <div 
                 class="stat-bar-fill" 
-                :style="{ width: stat.base_stat + '%' }"
+                :style="{ width: (stat.base_stat / 225 * 100) + '%' }"
               ></div>
             </div>
           </li>
@@ -67,30 +71,30 @@ import { ref } from 'vue';
 export default {
   data() {
     return {
-      pokemonName:'',
+      pokemonName: '',
       pokemon: null,
       weaknesses: [],
       errorMessage: '',
       showNoPokemonMessage: false,
       typeColors: {
-        normal: 'normal',
-        fire: 'fire',
-        water: 'water',
-        electric: 'electric',
-        grass: 'grass',
-        ice: 'ice',
-        fighting: 'fighting',
-        poison: 'poison',
-        ground: 'ground',
-        flying: 'flying',
-        psychic: 'psychic',
-        bug: 'bug',
-        rock: 'rock',
-        ghost: 'ghost',
-        dragon: 'dragon',
-        dark: 'dark',
-        steel: 'steel',
-        fairy: 'fairy'
+        normal: '#A8A77A',
+        fire: '#EE8130',
+        water: '#6390F0',
+        electric: '#F7D02C',
+        grass: '#7AC74C',
+        ice: '#96D9D6',
+        fighting: '#C22E28',
+        poison: '#A33EA1',
+        ground: '#E2BF65',
+        flying: '#A98FF3',
+        psychic: '#F95587',
+        bug: '#A6B91A',
+        rock: '#B6A136',
+        ghost: '#735797',
+        dragon: '#6F35FC',
+        dark: '#705746',
+        steel: '#B7B7CE',
+        fairy: '#D685AD'
       }
     };
   },
@@ -154,8 +158,6 @@ export default {
 };
 </script>
 
-
-
 <style>
 .app-container {
   display: flex;
@@ -202,21 +204,30 @@ button {
   display: flex;
   flex-direction: column;
   align-items: center;
-  border: 1px solid #ddd;
   border-radius: 10px;
   padding: 20px;
   width: 300px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  background-image: url("https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/1e32d1c2-e8f4-41be-af8c-b35aff1fb04f/dcgd5q4-1a52d49f-4736-4e05-9073-d66d4b71f247.png/v1/fill/w_1024,h_1821,q_80,strp/blank_pokedex_phone_background_by_thealmightyl_dcgd5q4-fullview.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9MTgyMSIsInBhdGgiOiJcL2ZcLzFlMzJkMWMyLWU4ZjQtNDFiZS1hZjhjLWIzNWFmZjFmYjA0ZlwvZGNnZDVxNC0xYTUyZDQ5Zi00NzM2LTRlMDUtOTA3My1kNjZkNGI3MWYyNDcucG5nIiwid2lkdGgiOiI8PTEwMjQifV1dLCJhdWQiOlsidXJuOnNlcnZpY2U6aW1hZ2Uub3BlcmF0aW9ucyJdfQ.Bp44p5oW6-d0ctiXA4tASTcK5zgDR_pGOW2YnJgKP_A");
+   background-image: url("https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/1e32d1c2-e8f4-41be-af8c-b35aff1fb04f/dcgd5q4-1a52d49f-4736-4e05-9073-d66d4b71f247.png/v1/fill/w_1024,h_1821,q_80,strp/blank_pokedex_phone_background_by_thealmightyl_dcgd5q4-fullview.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9MTgyMSIsInBhdGgiOiJcL2ZcLzFlMzJkMWMyLWU4ZjQtNDFiZS1hZjhjLWIzNWFmZjFmYjA0ZlwvZGNnZDVxNC0xYTUyZDQ5Zi00NzM2LTRlMDUtOTA3My1kNjZkNGI3MWYyNDcucG5nIiwid2lkdGgiOiI8PTEwMjQifV1dLCJhdWQiOlsidXJuOnNlcnZpY2U6aW1hZ2Uub3BlcmF0aW9ucyJdfQ.Bp44p5oW6-d0ctiXA4tASTcK5zgDR_pGOW2YnJgKP_A");
   background-repeat: no-repeat;
   background-size: 100%;
   background-position: center;
   margin-top: 4%;
 }
 
+.pokemon-image-container {
+  width: 50%;
+  height: 50%;
+  border-radius: 0%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
 .pokemon-image {
-  width: 150px;
-  height: 150px;
+  width: 100px;
+  height: 100px;
 }
 
 .types, .weaknesses {
@@ -235,25 +246,6 @@ button {
   cursor: default;
 }
 
-.type-button.normal { background-color: #A8A77A; }
-.type-button.fire { background-color: #EE8130; }
-.type-button.water { background-color: #6390F0; }
-.type-button.electric { background-color: #F7D02C; }
-.type-button.grass { background-color: #7AC74C; }
-.type-button.ice { background-color: #96D9D6; }
-.type-button.fighting { background-color: #C22E28; }
-.type-button.poison { background-color: #A33EA1; }
-.type-button.ground { background-color: #E2BF65; }
-.type-button.flying { background-color: #A98FF3; }
-.type-button.psychic { background-color: #F95587; }
-.type-button.bug { background-color: #A6B91A; }
-.type-button.rock { background-color: #B6A136; }
-.type-button.ghost { background-color: #735797; }
-.type-button.dragon { background-color: #6F35FC; }
-.type-button.dark { background-color: #705746; }
-.type-button.steel { background-color: #B7B7CE; }
-.type-button.fairy { background-color: #D685AD; }
-
 .stats {
   background-image: url("https://i.pinimg.com/originals/e6/5f/4a/e65f4a73e2a09c6ef3661d1197587f57.jpg") ;
   background-repeat: no-repeat;
@@ -263,6 +255,7 @@ button {
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   margin-top: 10%;
+
 }
 
 .stats ul {
@@ -292,13 +285,6 @@ button {
   transition: width 0.3s ease;
 }
 
-.weaknesses {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-top: 10px;
-}
-
 .no-pokemon-card {
   display: flex;
   flex-direction: column;
@@ -316,15 +302,13 @@ button {
   height: 150px;
   margin-bottom: 10px;
 }
-.p{
-  margin-top: 4%;
-}
-  @media (max-width: 800px) {
-    .card-container{
-      display: flex;
-      flex-direction: column;
-    }
+
+@media (max-width: 800px) {
+  .card-container {
+    display: flex;
+    flex-direction: column;
   }
+}
 </style>
 
 
