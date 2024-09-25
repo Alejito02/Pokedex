@@ -5,7 +5,7 @@
     <input 
       v-model="pokemonName" 
       @keyup.enter="fetchPokemonData" 
-      placeholder="Pokemon" 
+      placeholder="Choose your Pokemon" 
     />
     <button @click="fetchPokemonData">Buscar</button>
 
