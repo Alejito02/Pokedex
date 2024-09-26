@@ -17,7 +17,7 @@
           <img :src="pokemon.sprites?.front_default" alt="Pokemon Image" class="pokemon-image" />
         </div>
         
-        <h2>{{ pokemon.name ? pokemon.name || capitalize : 'Nombre no disponible' }}</h2>
+        <h4>{{ pokemon.name ? pokemon.name || capitalize : 'Nombre no disponible' }}</h4>
         
         <div class="types">
           <button 
@@ -42,14 +42,13 @@
           </button>
         </div>
       </div>
-
       <div v-if="showNoPokemonMessage" class="no-pokemon-card">
         <img src="https://i.pinimg.com/564x/31/e7/36/31e736cb776e4d8781c1331d00eb7d3b.jpg" alt="Pokémon Not Found" class="no-pokemon-image" />
         <p>Pokémon no registrado en tu Pokédex</p>
       </div>
 
       <div v-if="pokemon" class="stats">
-        <h3>Estadísticas</h3>
+        <h6>Estadísticas</h6>
         <ul>
           <li v-for="stat in pokemon.stats" :key="stat.stat.name">
             <div class="stat-name">{{ stat.stat.name || capitalize }}: {{ stat.base_stat }}</div>
@@ -66,75 +65,76 @@
   </div>
 </template>
 
+
 <script>
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
+
 export default {
-  data() {
-    return {
-      pokemonName: '',
-      pokemon: null,
-      weaknesses: [],
-      errorMessage: '',
-      showNoPokemonMessage: false,
-      typeColors: {
-        normal: '#A8A77A',
-        fire: '#EE8130',
-        water: '#6390F0',
-        electric: '#F7D02C',
-        grass: '#7AC74C',
-        ice: '#96D9D6',
-        fighting: '#C22E28',
-        poison: '#A33EA1',
-        ground: '#E2BF65',
-        flying: '#A98FF3',
-        psychic: '#F95587',
-        bug: '#A6B91A',
-        rock: '#B6A136',
-        ghost: '#735797',
-        dragon: '#6F35FC',
-        dark: '#705746',
-        steel: '#B7B7CE',
-        fairy: '#D685AD'
-      }
+  setup() {
+    const pokemonName = ref('');
+    const pokemon = ref(null);
+    const weaknesses = ref([]);
+    const errorMessage = ref('');
+    const showNoPokemonMessage = ref(false);
+
+    const typeColors = {
+      normal: '#A8A77A',
+      fire: '#EE8130',
+      water: '#6390F0',
+      electric: '#F7D02C',
+      grass: '#7AC74C',
+      ice: '#96D9D6',
+      fighting: '#C22E28',
+      poison: '#A33EA1',
+      ground: '#E2BF65',
+      flying: '#A98FF3',
+      psychic: '#F95587',
+      bug: '#A6B91A',
+      rock: '#B6A136',
+      ghost: '#735797',
+      dragon: '#6F35FC',
+      dark: '#705746',
+      steel: '#B7B7CE',
+      fairy: '#D685AD'
     };
-  },
-  methods: {
-    async fetchPokemonData() {
+
+    const fetchPokemonData = async () => {
       try {
-        let searchTerm = this.pokemonName.toLowerCase().trim();
-        
+        let searchTerm = pokemonName.value.toLowerCase().trim();
+
         if (!searchTerm) {
           const randomId = Math.floor(Math.random() * 1010) + 1;
           searchTerm = randomId;
         }
-        
+
         const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${searchTerm}`);
         if (!response.ok) {
-          this.showNoPokemonMessage = true;
-          this.pokemon = null;
-          this.weaknesses = [];
+          showNoPokemonMessage.value = true;
+          pokemon.value = null;
+          weaknesses.value = [];
           return;
         }
 
         const data = await response.json();
-        this.pokemon = data;
-        this.showNoPokemonMessage = false;
-        this.errorMessage = '';
-        this.weaknesses = [];
+        pokemon.value = data;
+        showNoPokemonMessage.value = false;
+        errorMessage.value = '';
+        weaknesses.value = [];
 
-        await this.fetchWeaknesses();
+        await fetchWeaknesses();
       } catch (error) {
-        this.errorMessage = error.message;
-        this.pokemon = null;
-        this.weaknesses = [];
-        this.showNoPokemonMessage = true;
+        errorMessage.value = error.message;
+        pokemon.value = null;
+        weaknesses.value = [];
+        showNoPokemonMessage.value = true;
       }
-    },
-    async fetchWeaknesses() {
+    };
+
+    const fetchWeaknesses = async () => {
       try {
-        let weaknessesSet = new Set();
-        
-        for (const typeInfo of this.pokemon.types) {
+        const weaknessesSet = new Set();
+
+        for (const typeInfo of pokemon.value.types) {
           const response = await fetch(typeInfo.type.url);
           const typeData = await response.json();
 
@@ -142,18 +142,29 @@ export default {
             weaknessesSet.add(weakness.name);
           });
         }
-        this.weaknesses = Array.from(weaknessesSet);
+
+        weaknesses.value = Array.from(weaknessesSet);
       } catch (error) {
         console.error('Error al obtener debilidades:', error);
       }
-    }
-  },
-  filters: {
-    capitalize(value) {
+    };
+
+    const capitalize = (value) => {
       if (!value) return '';
       value = value.toString();
       return value.charAt(0).toUpperCase() + value.slice(1);
-    }
+    };
+
+    return {
+      pokemonName,
+      pokemon,
+      weaknesses,
+      errorMessage,
+      showNoPokemonMessage,
+      typeColors,
+      fetchPokemonData,
+      capitalize
+    };
   }
 };
 </script>
@@ -254,10 +265,13 @@ button {
   width: 300px;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  margin-top: 10%;
+  margin-top: 5%;
 
 }
 
+.h6{
+  margin: 0%;
+}
 .stats ul {
   list-style-type: none;
   padding: 0;
@@ -308,6 +322,11 @@ button {
     display: flex;
     flex-direction: column;
   }
+  .no-pokemon-card {
+    display: flex;
+    flex-direction: column;
+  }
+
 }
 </style>
 
