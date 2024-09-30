@@ -243,7 +243,7 @@ button {
   border-radius: 10px;
   padding: 20px;
   width: 300px;
-  height: 500px;
+  height: 300px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   background-image: url("https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/1e32d1c2-e8f4-41be-af8c-b35aff1fb04f/dcgd5q4-1a52d49f-4736-4e05-9073-d66d4b71f247.png/v1/fill/w_1024,h_1821,q_80,strp/blank_pokedex_phone_background_by_thealmightyl_dcgd5q4-fullview.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9MTgyMSIsInBhdGgiOiJcL2ZcLzFlMzJkMWMyLWU4ZjQtNDFiZS1hZjhjLWIzNWFmZjFmYjA0ZlwvZGNnZDVxNC0xYTUyZDQ5Zi00NzM2LTRlMDUtOTA3My1kNjZkNGI3MWYyNDcucG5nIiwid2lkdGgiOiI8PTEwMjQifV1dLCJhdWQiOlsidXJuOnNlcnZpY2U6aW1hZ2Uub3BlcmF0aW9ucyJdfQ.Bp44p5oW6-d0ctiXA4tASTcK5zgDR_pGOW2YnJgKP_A");
   background-repeat: no-repeat;
