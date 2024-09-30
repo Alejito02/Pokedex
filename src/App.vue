@@ -255,7 +255,7 @@ button {
 .pokemon-image-container {
   width: 80%;
   height: 100%;
-  border-radius: 0%;
+  border-radius: 7%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -275,7 +275,7 @@ button {
   width: 300px;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  margin-top: 5%;
+  margin-top: 8%;
   padding: 20px;
 }
 .stats,h6{
