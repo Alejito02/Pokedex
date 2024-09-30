@@ -9,8 +9,6 @@
     />
     <button @click="fetchPokemonData">Buscar</button>
 
-    <div v-if="errorMessage" class="error-message">{{ errorMessage }}</div>
-
     <div v-if="pokemon || showNoPokemonMessage" class="card-container">
       <div v-if="pokemon" class="weakness-card">
         <h4 class="titleW">Debilidades</h4>
@@ -68,6 +66,98 @@
   </div>
 </template>
 
+<script>
+import { ref } from 'vue';
+
+export default {
+  setup() {
+    const pokemonName = ref('');
+    const pokemon = ref(null);
+    const showNoPokemonMessage = ref(false);
+    const errorMessage = ref('');
+    const weaknesses = ref([]);
+    
+    const typeColors = ref({
+      normal: '#A8A878',
+      fire: '#F08030',
+      water: '#6890F0',
+      electric: '#F8D030',
+      grass: '#78C850',
+      ice: '#98D8D8',
+      fighting: '#C03028',
+      poison: '#A040A0',
+      ground: '#E0C068',
+      flying: '#A890F0',
+      psychic: '#F85888',
+      bug: '#A8B820',
+      rock: '#B8A038',
+      ghost: '#705898',
+      dragon: '#7038F8',
+      dark: '#705848',
+      steel: '#B8B8D0',
+      fairy: '#EE99AC',
+    });
+
+    const capitalize = (word) => {
+      return word.charAt(0).toUpperCase() + word.slice(1);
+    };
+
+    const getRandomPokemonId = () => {
+      return Math.floor(Math.random() * 1010) + 1;
+    };
+
+    const fetchPokemonData = async () => {
+      let pokemonIdOrName = pokemonName.value.trim().toLowerCase();
+
+      if (!pokemonIdOrName) {
+        pokemonIdOrName = getRandomPokemonId();
+      }
+
+      try {
+        const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonIdOrName}`);
+
+        if (!response.ok) {
+          errorMessage.value = 'Pokémon no encontrado. Verifica el nombre.';
+          pokemon.value = null;
+          showNoPokemonMessage.value = true;
+          weaknesses.value = [];
+          return;
+        }
+
+        const data = await response.json();
+        pokemon.value = data;
+        showNoPokemonMessage.value = false;
+        errorMessage.value = '';
+
+        const typeResponses = await Promise.all(
+          data.types.map((typeInfo) => fetch(`https://pokeapi.co/api/v2/type/${typeInfo.type.name}`))
+        );
+        const typeData = await Promise.all(typeResponses.map((res) => res.json()));
+
+        weaknesses.value = typeData
+          .flatMap((typeInfo) => typeInfo.damage_relations.double_damage_from)
+          .map((type) => type.name);
+      } catch (error) {
+        errorMessage.value = 'Error al obtener los datos. Intenta nuevamente.';
+        pokemon.value = null;
+        showNoPokemonMessage.value = true;
+        weaknesses.value = [];
+      }
+    };
+
+    return {
+      pokemonName,
+      pokemon,
+      showNoPokemonMessage,
+      errorMessage,
+      weaknesses,
+      typeColors,
+      capitalize,
+      fetchPokemonData,
+    };
+  },
+};
+</script>
 <style>
 .app-container {
   display: flex;
@@ -250,100 +340,4 @@ button {
 }
 
 </style>
-
-<script>
-export default {
-  data() {
-    return {
-      pokemonName: '', 
-      pokemon: null, 
-      showNoPokemonMessage: false, 
-      errorMessage: '', 
-      weaknesses: [], 
-      typeColors: { 
-        normal: '#A8A878',
-        fire: '#F08030',
-        water: '#6890F0',
-        electric: '#F8D030',
-        grass: '#78C850',
-        ice: '#98D8D8',
-        fighting: '#C03028',
-        poison: '#A040A0',
-        ground: '#E0C068',
-        flying: '#A890F0',
-        psychic: '#F85888',
-        bug: '#A8B820',
-        rock: '#B8A038',
-        ghost: '#705898',
-        dragon: '#7038F8',
-        dark: '#705848',
-        steel: '#B8B8D0',
-        fairy: '#EE99AC'
-      }
-    };
-  },
-  methods: {
-    capitalize(word) {
-      return word.charAt(0).toUpperCase() + word.slice(1);
-    },
-    getRandomPokemonId() {
-      return Math.floor(Math.random() * 1010) + 1; 
-    },
-    async fetchPokemonData() {
-      let pokemonIdOrName = this.pokemonName.trim().toLowerCase();
-
-      if (!pokemonIdOrName) {
-        pokemonIdOrName = this.getRandomPokemonId();
-      }
-
-      try {
-        const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonIdOrName}`);
-        
-        if (!response.ok) {
-          this.errorMessage = 'Pokémon no encontrado. Verifica el nombre.';
-          this.pokemon = null;
-          this.showNoPokemonMessage = true;
-          this.weaknesses = [];
-          return;
-        }
-
-        const data = await response.json();
-        this.pokemon = data;
-        this.showNoPokemonMessage = false;
-        this.errorMessage = '';
-
-       
-        const typeResponses = await Promise.all(
-          data.types.map(typeInfo => fetch(`https://pokeapi.co/api/v2/type/${typeInfo.type.name}`))
-        );
-        const typeData = await Promise.all(typeResponses.map(res => res.json()));
-
-     
-        this.weaknesses = typeData
-          .flatMap(typeInfo => typeInfo.damage_relations.double_damage_from)
-          .map(type => type.name);
-      } catch (error) {
-        this.errorMessage = 'Error al obtener los datos. Intenta nuevamente.';
-        this.pokemon = null;
-        this.showNoPokemonMessage = true;
-        this.weaknesses = [];
-      }
-    }
-  }
-};
-</script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
