@@ -327,7 +327,7 @@ button {
   height: 150px;
   margin-bottom: 10px;
 }
-.NombreP{
+.NombreP .h4{
   background-color: white;
 }
 
