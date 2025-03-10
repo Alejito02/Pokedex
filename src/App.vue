@@ -29,7 +29,7 @@
           <img :src="pokemon.sprites?.front_default" alt="Pokemon Image" class="pokemon-image" />
         </div>
         
-        <h4>{{ pokemon.name ? pokemon.name || capitalize : 'Nombre no disponible' }}</h4>
+        <h4 class="NombreP">{{ pokemon.name ? pokemon.name || capitalize : 'Nombre no disponible' }}</h4>
         
         <div class="types">
           <button 
@@ -326,6 +326,9 @@ button {
   width: 150px;
   height: 150px;
   margin-bottom: 10px;
+}
+.NombreP{
+  background-color: white;
 }
 
 @media (max-width: 800px) {
