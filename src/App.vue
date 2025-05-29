@@ -154,7 +154,6 @@ export default {
   flex-direction: column;
   align-items: center;
   font-family: 'Arial', sans-serif;
-  margin-top: 10%;
 }
 
 .pokemon-logo {
