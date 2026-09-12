@@ -1,7 +1,11 @@
 <template>
   <div class="app-container">
     <img
+<<<<<<< HEAD
       src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/International_Pok%C3%A9mon_logo.svg/1280px-International_Pok%C3%A9mon_logo.svg.png"
+=======
+      src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/International_Pok%C3%A9mon_logo.svg/640px-International_Pok%C3%A9mon_logo.svg.png"
+>>>>>>> 2ca13af675ad0cedb7591eca6166160a5f990165
       alt="Pokémon Logo" class="pokemon-logo" />
 
     <input v-model="pokemonName" @keyup.enter="fetchPokemonData" placeholder="Choose your Pokemon" />
@@ -9,7 +13,11 @@
 
     <div v-if="pokemon || showNoPokemonMessage" class="card-container">
       <div v-if="pokemon" class="weakness-card">
+<<<<<<< HEAD
         <h4 class="titleW">Weakness</h4>
+=======
+        <h4 class="titleW">Debilidades</h4>
+>>>>>>> 2ca13af675ad0cedb7591eca6166160a5f990165
         <div class="weaknesses">
           <button v-for="weakness in weaknesses" :key="weakness" :style="{ backgroundColor: typeColors[weakness] }"
             class="type-butt0n">
@@ -41,7 +49,11 @@
       </div>
 
       <div v-if="pokemon" class="stats">
+<<<<<<< HEAD
         <h6>Stats</h6>
+=======
+        <h6>Estadísticas</h6>
+>>>>>>> 2ca13af675ad0cedb7591eca6166160a5f990165
         <ul>
           <li v-for="stat in pokemon.stats" :key="stat.stat.name">
             <div class="stat-name">{{ stat.stat.name || capitalize }}: {{ stat.base_stat }}</div>
@@ -170,7 +182,11 @@ input {
   background: #c1cde6;
   border: none;
   width: 300px;
+<<<<<<< HEAD
   box-shadow: 0px 0px 0px 3px rgba(24, 78, 255, 0.788);
+=======
+  box-shadow: 8px 8px 8px  rgba(24, 78, 255, 0.788);
+>>>>>>> 2ca13af675ad0cedb7591eca6166160a5f990165
 }
 
 button {
@@ -181,6 +197,7 @@ button {
   cursor: pointer;
   font-size: large;
   color: white;
+<<<<<<< HEAD
   box-shadow: 0px 0px 0px 4px #ff0707c9;
 }
 
@@ -191,6 +208,17 @@ button {
    gap: 20px;
    position: relative;
     margin-top: 10%;
+=======
+  box-shadow: 8px 8px 8px  #ff0707c9;
+}
+
+.card-container {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 20px;
+  position: relative;
+>>>>>>> 2ca13af675ad0cedb7591eca6166160a5f990165
 }
 
 .weakness-card {
@@ -203,6 +231,7 @@ button {
   width: 300px;
   height: 343px;
   margin-top: 4%;
+<<<<<<< HEAD
   background-image: url("https://www.pngfind.com/pngs/b/48-480534_text-box-png.png");
   background-size: cover;
   background-position: center;
@@ -210,10 +239,20 @@ button {
 
 .titleW {
   margin-top: 15%;
+=======
+  background-image: url(https://i.pinimg.com/564x/9f/13/ec/9f13ec9c73bd9916ab5d263e3fa89d78.jpg);
+  background-size: 100%;
+  background-position: inherit;
+}
+
+.titleW {
+  margin-top: 30%;
+>>>>>>> 2ca13af675ad0cedb7591eca6166160a5f990165
   font-family: Arial, Helvetica, sans-serif;
 }
 
 .weaknesses {
+<<<<<<< HEAD
    margin-top: 10px;
     display: flex;
     flex-wrap: nowrap;
@@ -222,6 +261,12 @@ button {
     align-items: center;
     justify-content: space-around;
     flex-direction: column;
+=======
+  margin-top: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+>>>>>>> 2ca13af675ad0cedb7591eca6166160a5f990165
 }
 
 .type-butt0n {
@@ -241,6 +286,7 @@ button {
   align-items: center;
   border-radius: 10px;
   padding: 10px;
+<<<<<<< HEAD
   width: 330px;
   height: 500px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -259,6 +305,26 @@ button {
     align-items: center;
     margin-bottom: 23%;
     margin-top: 27%;
+=======
+  width: 300px;
+  height: 363px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-image: url("https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/1e32d1c2-e8f4-41be-af8c-b35aff1fb04f/dcgd5q4-1a52d49f-4736-4e05-9073-d66d4b71f247.png/v1/fill/w_1024,h_1821,q_80,strp/blank_pokedex_phone_background_by_thealmightyl_dcgd5q4-fullview.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9MTgyMSIsInBhdGgiOiJcL2ZcLzFlMzJkMWMyLWU4ZjQtNDFiZS1hZjhjLWIzNWFmZjFmYjA0ZlwvZGNnZDVxNC0xYTUyZDQ5Zi00NzM2LTRlMDUtOTA3My1kNjZkNGI3MWYyNDcucG5nIiwid2lkdGgiOiI8PTEwMjQifV1dLCJhdWQiOlsidXJuOnNlcnZpY2U6aW1hZ2Uub3BlcmF0aW9ucyJdfQ.Bp44p5oW6-d0ctiXA4tASTcK5zgDR_pGOW2YnJgKP_A");
+  background-repeat: no-repeat;
+  background-size: 100%;
+  background-position: center;
+  margin-top: 4%;
+}
+
+.pokemon-image-container {
+  width: 80%;
+  height: 60%;
+  border-radius: 7%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+>>>>>>> 2ca13af675ad0cedb7591eca6166160a5f990165
 }
 
 .pokemon-image {
@@ -267,8 +333,14 @@ button {
 }
 
 .stats {
+<<<<<<< HEAD
   background-repeat: no-repeat;
   background-size: cover;
+=======
+  background-image: url("https://i.pinimg.com/originals/e6/5f/4a/e65f4a73e2a09c6ef3661d1197587f57.jpg");
+  background-repeat: no-repeat;
+  background-size: 130%;
+>>>>>>> 2ca13af675ad0cedb7591eca6166160a5f990165
   background-position: center;
   width: 300px;
   height: 343px;
@@ -279,10 +351,16 @@ button {
 }
 
 .stats h6 {
+<<<<<<< HEAD
     font-size: x-large;
     margin: 0%;
     margin-bottom: 15%;
     margin-left: 28%;
+=======
+  font-size: x-large;
+  margin: 0%;
+  margin-bottom: 15%;
+>>>>>>> 2ca13af675ad0cedb7591eca6166160a5f990165
 }
 
 .stats ul {
@@ -321,7 +399,11 @@ button {
   margin: 20%;
   width: 500px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+<<<<<<< HEAD
   background-image: url("https://i.pinimg.com/736x/14/bd/68/14bd686faedccee521a84e293f50cbb6.jpg");
+=======
+  background-image: url("https://i.pinimg.com/564x/96/22/4c/96224c01e410fb08e7922e2ec958f974.jpg");
+>>>>>>> 2ca13af675ad0cedb7591eca6166160a5f990165
 }
 
 .no-pokemon-image {
@@ -331,17 +413,26 @@ button {
 }
 
 .NombreP {
+<<<<<<< HEAD
     margin-left: 7%;
     margin-bottom: 10px;
     font: revert-layer;
     margin-top: 0;
+=======
+  margin-bottom: 30px;
+  background-color: white;
+  margin-top: 0;
+>>>>>>> 2ca13af675ad0cedb7591eca6166160a5f990165
 }
 
 .types{
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
+<<<<<<< HEAD
     margin-left: 6%;
+=======
+>>>>>>> 2ca13af675ad0cedb7591eca6166160a5f990165
 }
 
 @media (max-width: 800px) {
